@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
 import Layout from './Components/Layout/Layout'
 import './App.css'
-import {useSelector} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux'
 import ProductCard from './Components/Product/ProductCard'
 import CartPopUp from './Components/Cart/CartPopUp'
-
+import { setProductList } from './Redux/Slices/productSlice'
 
 
 function App() {
+  const dispatch = useDispatch()
  
 
  const isVisible = useSelector((state)=>state.showCart.isVisible)
@@ -17,6 +18,29 @@ function App() {
 
  const cartArr=useSelector((state)=>state.products.productList)
  console.log(cartArr)
+
+ useEffect(() => {
+  fetch(
+    "https://redux-cart-backend-default-rtdb.firebaseio.com/cart_products.json"
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const products = Object.values(data);
+      products.forEach((product) => {
+        dispatch(
+          setProductList({
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            description: product.description,
+            image: product.image,
+            quantity: product.quantity,
+          })
+        );
+      });
+    })
+    .catch((error) => console.error('Error:', error));
+}, [dispatch]);
 
 
 useEffect(()=>{
