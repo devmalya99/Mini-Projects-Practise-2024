@@ -15,14 +15,14 @@ const ProductCard = () => {
     }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 dark: bg-black dark:text-white">
 
     {
         productsList.map((product)=>{
             return(
                 <div 
                 key={product.id}
-                className="bg-white rounded-lg overflow-hidden shadow-lg ring-4 ring-red-500 ring-opacity-40 max-w-sm">
+                className="bg-white rounded-lg overflow-hidden shadow-lg ring-4 ring-red-500 ring-opacity-40 max-w-sm dark:bg-black  dark:text-white">
     <div className="relative ">
         <img className="w-full h-64" src={product.image} alt="Product Image"/>
 
