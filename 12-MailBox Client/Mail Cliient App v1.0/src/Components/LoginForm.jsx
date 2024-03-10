@@ -3,35 +3,22 @@ import { Link , useNavigate} from "react-router-dom";
 import Header from "./Header";
 import { useAuth } from "../AuthContext/AuthContext";
 
+import { signInWithEmailAndPassword ,getAuth} from "firebase/auth";
+
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const {setIsLoggedIn} = useAuth();
   const Navigate = useNavigate();
+  const auth = getAuth();
 
   async function login(email, password) {
     try {
-        const response = await fetch ('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyALYreoXqacVFLxlDfVmjCAVcp21Q-PeGI',{
-          method: 'POST',
-          headers:{
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email,
-            password,
-            returnSecureToken: true
-          })
-        })
-
-        if (!response.ok) {
-          throw new Error('Error during sign up');
-        }else{
-          setIsLoggedIn(true);
-        }
-
-
-        const data = await response.json();
-        console.log("Data after login ", data);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user;
+      setIsLoggedIn(true); 
+      console.log("Data after login ", user);
         
 
     } catch (error) {
