@@ -1,6 +1,7 @@
 
 
 import './App.css'
+import { AuthProvider } from './AuthContext/AuthContext'
 import Navigation from './Components/Navigation'
 
 function App() {
@@ -8,8 +9,10 @@ function App() {
 
   return (
 <div className=' w-full'>
+   <AuthProvider>
+    <Navigation/>
+   </AuthProvider>
    
-   <Navigation/>
  
 </div>
   )

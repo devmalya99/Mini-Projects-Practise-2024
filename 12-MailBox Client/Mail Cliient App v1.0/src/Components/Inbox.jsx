@@ -3,6 +3,7 @@
 import React from 'react'
 import Sidebar from './SideNavbar'
 import {Link} from 'react-router-dom'
+import Logout from './Buttons/LogoutButton'
 const Inbox = () => {
   return (
     <>
@@ -35,9 +36,7 @@ const Inbox = () => {
               </div>
               
               
-              <button className="white px-4 ml-2 py-2 rounded-md text-gray-700 bg-gray-100 border border-transparent shadow-sm hover:text-blue-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:text-xl">
-              <Link to={''}>Logout</Link> 
-              </button>
+              <Logout/>
             </div>
           </div>
         </div>
@@ -50,7 +49,7 @@ const Inbox = () => {
   
     <div className="flex flex-col mx-2">
 
-    <h1 className="text-3xl font-bold mb-4">Inbox</h1>
+    <h1 className="text-3xl font-bold mb-4 ml-64 ">See whats waiting for you </h1>
     {/* {emails.map((email, index) => (
       <div key={index} className="border-b border-gray-200 py-4">
         <div className="flex items-center justify-between">

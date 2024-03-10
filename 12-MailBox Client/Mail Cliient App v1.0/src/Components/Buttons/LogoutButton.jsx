@@ -1,14 +1,27 @@
-
-
+import {  signOut } from "firebase/auth";
+import { useAuth } from "../../AuthContext/AuthContext";
+import { FirebaseAuthentication } from "../../Firebase/FirebaseConfig";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+
+
 
 const LogoutButton = () => {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+  const {setIsLoggedIn} = useAuth();
+
+
 
  
   const handleLogOut = async () => {
-   
+    try {
+      await signOut(FirebaseAuthentication);
+      setIsLoggedIn(false);
+      alert("Logout Successful");
+      navigate("/login");
+     
+    } catch (error) {
+      console.log(error)
+    }
   };
   return (
     <div>

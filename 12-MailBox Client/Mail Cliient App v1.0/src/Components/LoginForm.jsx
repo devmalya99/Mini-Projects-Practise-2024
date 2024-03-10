@@ -1,13 +1,43 @@
 import { useState } from "react";
 import { Link , useNavigate} from "react-router-dom";
 import Header from "./Header";
-
+import { useAuth } from "../AuthContext/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const {setIsLoggedIn} = useAuth();
   const Navigate = useNavigate();
+
+  async function login(email, password) {
+    try {
+        const response = await fetch ('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyALYreoXqacVFLxlDfVmjCAVcp21Q-PeGI',{
+          method: 'POST',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            returnSecureToken: true
+          })
+        })
+
+        if (!response.ok) {
+          throw new Error('Error during sign up');
+        }else{
+          setIsLoggedIn(true);
+        }
+
+
+        const data = await response.json();
+        console.log("Data after login ", data);
+        
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   
 
@@ -17,6 +47,8 @@ const Login = () => {
       alert("please enter all the fields");
       return;
     }
+
+    await login(email, password);
     
 
     
@@ -94,14 +126,14 @@ const Login = () => {
                     Remember me
                   </label>
                 </div>
-                <a
-                  href="/forgotPassword"
+                <Link
+                  to="/reset_password"
                   tabIndex="0"
                   aria-label="Forgot Password"
                   className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <button
                 type="submit"

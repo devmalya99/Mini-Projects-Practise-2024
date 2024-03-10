@@ -6,6 +6,8 @@ import Header from './Header';
 import Home from './Home';
 import Inbox from './Inbox';
 import Compose from './Compose';
+import Forgot from './ForgotPassword';
+import Protected from './Protected/Protected';
 
 const Navigation = () => {
   return (
@@ -15,10 +17,28 @@ const Navigation = () => {
       <Route exact path="/" element={<Home />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/signup" element={<Signup />} />
-      <Route exact path="/inbox" element={<Inbox />} />
-      <Route exact path="/compose" element={<Compose />} />
+      <Route exact path="/reset_password" element={<Forgot />} />
+      <Route
+          exact
+          path="/inbox"
+          element={
+            <Protected>
+              <Inbox />
+            </Protected>
+          }
+        />
+        <Route
+          exact
+          path="/compose"
+          element={
+            <Protected>
+              <Compose />
+            </Protected>
+          }
+        />
     </Routes>
     </BrowserRouter>
+
   )
 }
 

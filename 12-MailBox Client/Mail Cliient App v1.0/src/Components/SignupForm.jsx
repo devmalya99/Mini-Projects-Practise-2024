@@ -12,6 +12,39 @@ const Signup = () => {
 
   const Navigate = useNavigate();
 
+  async function signup(email,password){
+
+    try {
+      const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyALYreoXqacVFLxlDfVmjCAVcp21Q-PeGI', {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        returnSecureToken: true
+      })
+    })
+
+    if (!response.ok) {
+      throw new Error('Error during sign up');
+    }
+
+    const data = await response.json();
+    console.log(data)
+
+
+
+
+    } catch (error) {
+       // Check the response status
+   
+      console.log(error)
+    }
+   
+  }
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -28,7 +61,23 @@ const Signup = () => {
       return;
     }
 
-    console.log("Signup successful", email, password, confirmPassword);
+    // Perform signup logic here
+   await signup(email,password)
+    
+
+
+    // Reset form fields
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setError(null);
+
+
+
+    alert("Please Login To continue");
+    
+
+    Navigate("/login");
   };
 
   return (
