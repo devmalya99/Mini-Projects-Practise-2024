@@ -8,6 +8,7 @@ import Inbox from './Inbox';
 import Compose from './Compose';
 import Forgot from './ForgotPassword';
 import Protected from './Protected/Protected';
+import Sentbox from './Sentbox';
 
 const Navigation = () => {
   return (
@@ -33,6 +34,16 @@ const Navigation = () => {
           element={
             <Protected>
               <Compose />
+            </Protected>
+          }
+        />
+
+<Route
+          exact
+          path="/sentbox"
+          element={
+            <Protected>
+              <Sentbox />
             </Protected>
           }
         />

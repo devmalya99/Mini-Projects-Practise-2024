@@ -5,8 +5,9 @@ import {useState , useEffect } from 'react';
 import { FirebaseAuthentication } from '../Firebase/FirebaseConfig';
 
 import Sidebar from './SideNavbar';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 const EmailCompose = () => {
+  const navigate = useNavigate();
 
   const [mailContent,setMailContent] = useState({})
   
@@ -14,19 +15,38 @@ const EmailCompose = () => {
     setMailContent({...mailContent, [e.target.name]: e.target.value})
   }
 
-  const saveEmailToUserInbox = (from, emailId)=>{
-    fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/Users/${userEmail}/inbox.json`, {
-      method: 'PATCH',
-      body: JSON.stringify({ [emailId]: true }),
-    });
-  }
+  const saveEmailToUserInbox = async (to, emailId) => {
+    //While decoding, replace _ back to ., 
+    // because _ is used in firebase 
+    //and you have the original email address.
 
-  const saveEmailToUserSentbox = (to, emailId)=>{
-    fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/Users/${userEmail}/sentbox.json`, {
-      method: 'PATCH',
-      body: JSON.stringify({ [emailId]: true }),
+    const formattedTo = to.replace(/\./g, '_');
+    // Make POST request to Firebase
+    const response = await fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/inbox/${formattedTo}.json`, {
+      method: 'POST',
+      body: JSON.stringify({ emailId })
     });
-  }
+  
+    if(!response.ok){
+      console.log("Error saving email to inbox");
+    }
+  };
+  
+  const saveEmailToUserSentbox = async (from, emailId) => {
+    const formattedFrom = from.replace(/\./g, '_');
+    //While decoding, replace _ back to ., 
+    // because _ is used in firebase and you have the original email address.
+    
+    // Make POST request to Firebase
+    const response = await fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/sent/${formattedFrom}.json`, {
+      method: 'POST',
+      body: JSON.stringify({ emailId })
+    });
+  
+    if(!response.ok){
+      console.log("Error saving email to sent box");
+    }
+  };
 
   
   useEffect(() => {
@@ -72,11 +92,12 @@ const EmailCompose = () => {
             const emailId = data.name;
 
             //Save the email in the sender's sentbox and receiver's inbox
-          saveEmailToUserInbox(from,  emailId);
-          saveEmailToUserSentbox(to, emailId);
+          saveEmailToUserInbox(to,  emailId);
+          saveEmailToUserSentbox(from, emailId);
 
           console.log('Mail sent');
-          }SD/k 
+          navigate('/sentbox');
+          }
           else{
             console.error('Error sending mail:', response.status);
           }

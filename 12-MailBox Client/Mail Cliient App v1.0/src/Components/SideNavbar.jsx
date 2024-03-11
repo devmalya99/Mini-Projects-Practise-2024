@@ -36,12 +36,12 @@ const Sidebar = () => {
                     </NavText>
                 </NavItem>
 
-                <NavItem eventKey="sent">
+                <NavItem eventKey="sentbox">
                     <NavIcon>
                     <i className="fa-regular fa-share-from-square" style={{ fontSize: '1.75em' }}></i>
                     </NavIcon>
                     <NavText>
-                        Sent
+                        Sentbox
                     </NavText>
                 </NavItem>
 
