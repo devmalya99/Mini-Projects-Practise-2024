@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+//create user
 export const createUser = createAsyncThunk(
   "createUser",
   async (data, rejectWithValue) => {
@@ -91,6 +92,7 @@ export const showUser = createAsyncThunk(
   }
 );
 
+//now create slice for it
 export const userDetails = createSlice({
   name: "userDetails",
   initialState: {

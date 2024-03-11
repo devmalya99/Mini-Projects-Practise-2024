@@ -5,44 +5,32 @@ import Sidebar from './SideNavbar'
 import {Link} from 'react-router-dom'
 import Logout from './Buttons/LogoutButton'
 import { FirebaseAuthentication } from '../Firebase/FirebaseConfig'
+import { fetchInboxEmails } from '../ReduxToolKit/mailSlice';
+import { useSelector , useDispatch} from 'react-redux';
 const Inbox = () => {
-  const [inboxArr, setInboxArr] = useState([]);
-  const fetchUserInbox = async()=>{
-    const userEmail = FirebaseAuthentication.currentUser.email;
-    const formattedEmail = userEmail.replace(/\./g, '_')
-  
-    const res = await fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/inbox/${formattedEmail}.json`,{
-  
-      method: 'GET',
-    
-    })
 
-    if(res.ok){
-      const data = await res.json();
-      setInboxArr(Object.values(data|| {}));
-      console.log(inboxArr);
-      return data;
-    }else{
-      console.log("Error fetching data");
-      return (<div><h1>Error fetching data</h1></div>)
-    }
-  
-  }
+  const dispatch = useDispatch();
+  const inboxEmails = useSelector((state) => state.mail.inboxEmailsArr);
+  console.log("inboxEmails",inboxEmails)
+  const isLoading = useSelector((state) => state.mail.isLoading);
+  const error = useSelector((state) => state.mail.error);
 
   useEffect(()=>{
     const unsubscribe = FirebaseAuthentication.onAuthStateChanged(user=>{
       if(user){
+        dispatch(fetchInboxEmails(user.email));
         console.log('User is signed in');
       }else{
         console.log('No user is signed in');
       }
     })
-    fetchUserInbox()
+    
      // Cleanup subscription on unmount
      return () => unsubscribe();
   },[])
 
-  if(!inboxArr){
+
+  if(!inboxEmails){
     return <div>Loading...</div>
   }
 
@@ -92,7 +80,7 @@ const Inbox = () => {
 
     <h1 className="text-3xl font-bold mb-4 ml-64 ">See whats waiting for you </h1>
     <ul className="divide-y divide-gray-200 ">
-      {inboxArr.map((email) => (
+      {inboxEmails.map((email) => (
         <li key={email.requestBody.sentAt} 
         className="px-4 py-4 sm:px-6  hover:bg-blue-gray-400">
           <div className="flex items-center justify-between ">

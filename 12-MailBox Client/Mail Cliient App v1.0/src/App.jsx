@@ -12,8 +12,6 @@ function App() {
    <AuthProvider>
     <Navigation/>
    </AuthProvider>
-   
- 
 </div>
   )
 }

@@ -6,49 +6,15 @@ import { FirebaseAuthentication } from '../Firebase/FirebaseConfig';
 
 import Sidebar from './SideNavbar';
 import {Link, useNavigate} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { saveInboxEmail, saveSentEmail } from '../ReduxToolKit/mailSlice';
 const EmailCompose = () => {
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.mail.isLoading);
+  const error = useSelector((state) => state.mail.error);
 
-  const [mailContent,setMailContent] = useState({})
-  
-  const handleChange = (e)=>{
-    setMailContent({...mailContent, [e.target.name]: e.target.value})
-  }
-
-  const saveEmailToUserInbox = async (to, requestBody) => {
-    //While decoding, replace _ back to ., 
-    // because _ is used in firebase 
-    //and you have the original email address.
-
-    const formattedTo = to.replace(/\./g, '_');
-    // Make POST request to Firebase
-    const response = await fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/inbox/${formattedTo}.json`, {
-      method: 'POST',
-      body: JSON.stringify({ requestBody })
-    });
-  
-    if(!response.ok){
-      console.log("Error saving email to inbox");
-    }
-  };
-  
-  const saveEmailToUserSentbox = async (from, requestBody) => {
-    const formattedFrom = from.replace(/\./g, '_');
-    //While decoding, replace _ back to ., 
-    // because _ is used in firebase and you have the original email address.
-    
-    // Make POST request to Firebase
-    const response = await fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/sent/${formattedFrom}.json`, {
-      method: 'POST',
-      body: JSON.stringify({ requestBody })
-    });
-  
-    if(!response.ok){
-      console.log("Error saving email to sent box");
-    }
-  };
-
-  
   useEffect(() => {
     const unsubscribe = FirebaseAuthentication.onAuthStateChanged(user => {
       if (user) {
@@ -63,15 +29,28 @@ const EmailCompose = () => {
 
   }, []);
 
+  const currentUser = FirebaseAuthentication.currentUser;
+  console.log(currentUser)
+  const from = currentUser.email
+
+  const [mailContent,setMailContent] = useState({})
+  
+  const handleChange = (e)=>{
+    setMailContent({...mailContent, [e.target.name]: e.target.value})
+  }
+
+  
+
+ 
+
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
     const {to , subject , message} = mailContent;
     const sentAt = new Date().getTime();
-    const currentUser = FirebaseAuthentication.currentUser;
-     console.log(currentUser)
+     
     if(currentUser){
-      const from = currentUser.email
+      
       const requestBody = {
         to,
         subject,
@@ -81,38 +60,28 @@ const EmailCompose = () => {
       };
 
       try{
-           const response = await fetch('https://mailbox-client-app-default-rtdb.firebaseio.com/Emails.json', {
-            method: 'POST',
-            body: JSON.stringify(requestBody),
-          })
+           // Dispatch the saveInboxEmail action
+           dispatch(saveInboxEmail({ to, requestBody }));
 
-          if(response.ok)
-          {
-            const data = await response.json();
-            
+            // Dispatch the saveSentEmail action
+            dispatch(saveSentEmail({ from, requestBody }));
 
-            //Save the email in the sender's sentbox and receiver's inbox
-          saveEmailToUserInbox(to,  requestBody);
-          saveEmailToUserSentbox(from, requestBody);
-
-          console.log('Mail sent',data);
-          navigate('/sentbox');
+             // Handle successful response if needed
+             console.log('Mail sent');
+             navigate('/sentbox');
           }
-          else{
-            console.error('Error sending mail:', response.status);
-          }
+
+      catch(error) 
+      {
+         console.error('Error:', error);
       }
-      catch(error) {
-      console.error('Error:', error);
-    }
   }else{
       console.log("User not logged in")
     }
-    
-
 
     console.log("submitted")
   }
+
   return (
     <>
     <header className="bg-gray-500 text-white sticky top-0 z-10 dark:bg-black dark:text-white">
