@@ -15,7 +15,7 @@ const EmailCompose = () => {
     setMailContent({...mailContent, [e.target.name]: e.target.value})
   }
 
-  const saveEmailToUserInbox = async (to, emailId) => {
+  const saveEmailToUserInbox = async (to, requestBody) => {
     //While decoding, replace _ back to ., 
     // because _ is used in firebase 
     //and you have the original email address.
@@ -24,7 +24,7 @@ const EmailCompose = () => {
     // Make POST request to Firebase
     const response = await fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/inbox/${formattedTo}.json`, {
       method: 'POST',
-      body: JSON.stringify({ emailId })
+      body: JSON.stringify({ requestBody })
     });
   
     if(!response.ok){
@@ -32,7 +32,7 @@ const EmailCompose = () => {
     }
   };
   
-  const saveEmailToUserSentbox = async (from, emailId) => {
+  const saveEmailToUserSentbox = async (from, requestBody) => {
     const formattedFrom = from.replace(/\./g, '_');
     //While decoding, replace _ back to ., 
     // because _ is used in firebase and you have the original email address.
@@ -40,7 +40,7 @@ const EmailCompose = () => {
     // Make POST request to Firebase
     const response = await fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/sent/${formattedFrom}.json`, {
       method: 'POST',
-      body: JSON.stringify({ emailId })
+      body: JSON.stringify({ requestBody })
     });
   
     if(!response.ok){
@@ -89,13 +89,13 @@ const EmailCompose = () => {
           if(response.ok)
           {
             const data = await response.json();
-            const emailId = data.name;
+            
 
             //Save the email in the sender's sentbox and receiver's inbox
-          saveEmailToUserInbox(to,  emailId);
-          saveEmailToUserSentbox(from, emailId);
+          saveEmailToUserInbox(to,  requestBody);
+          saveEmailToUserSentbox(from, requestBody);
 
-          console.log('Mail sent');
+          console.log('Mail sent',data);
           navigate('/sentbox');
           }
           else{
