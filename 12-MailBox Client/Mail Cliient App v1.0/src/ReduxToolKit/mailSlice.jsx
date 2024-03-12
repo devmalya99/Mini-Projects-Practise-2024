@@ -65,7 +65,7 @@ export const saveSentEmail = createAsyncThunk(
         }
   
         const data = await response.json();
-        return data ? Object.values(data) : [];
+        return data ? Object.entries(data).map(([id, value]) => ({ id, ...value })) : [];
       } catch (error) {
         return rejectWithValue(error.message);
       }
@@ -94,10 +94,44 @@ export const saveSentEmail = createAsyncThunk(
     }
   );
 
+  // Async thunk for updating read status:
+// Async thunk for updating read status of an Email:
+export const updateInboxEmail = createAsyncThunk(
+  'mail/updateInboxEmail',
+  async (payload, { rejectWithValue, getState }) => {
+    try {
+      const { id, email, readStatus } = payload; 
+      const formattedEmail = email.replace(/\./g, '_');
+
+      // Get the current state and the requestBody of the email to update 
+      const state = getState();
+      const requestBody = state.mail.inboxEmailsArr.find((email) => email.id === id).requestBody;
+
+      // Update the read status in requestBody
+      const updatedRequestBody = { ...requestBody, read: readStatus };
+
+      // Update back to the server
+      const response = await fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/inbox/${formattedEmail}/${id}/requestBody.json`, {
+        method: 'PUT',
+        body: JSON.stringify(updatedRequestBody)
+      });
+
+      if (!response.ok) {
+        throw new Error('Error updating read status of inbox email');
+      }
+
+      return payload; // Payload is the original payload containing id,email and readStatus
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
   //Async thunk for deleting an email:
   export const deleteEmail = createAsyncThunk(
 
   )
+
 
   //now create slice for it
   const mailSlice = createSlice({
@@ -107,6 +141,7 @@ export const saveSentEmail = createAsyncThunk(
       sentEmailsArr: [],
       isLoading: false,
       error: null,
+      totalUnreadMessages: 0,
     },
     reducers:{
         //how will i design my reducers here?
@@ -164,6 +199,8 @@ export const saveSentEmail = createAsyncThunk(
       .addCase(fetchInboxEmails.fulfilled, (state, action) => {
         state.isLoading = false;
         state.inboxEmailsArr = action.payload;
+        // Calculate totalUnreadMessages immediately after fetching the emails.
+state.totalUnreadMessages = state.inboxEmailsArr.reduce((count, email) => email.requestBody.read ? count : count + 1, 0);
       })
       .addCase(fetchInboxEmails.rejected, (state, action) => {
         state.isLoading = false;
@@ -184,6 +221,28 @@ export const saveSentEmail = createAsyncThunk(
         state.isLoading = false;
         state.error = action.payload;
       })
+
+      //update read status
+
+      // Update Inbox Email -> Fulfilled
+.addCase(updateInboxEmail.fulfilled, (state, action) => {
+  state.isLoading = false;
+  const { id, readStatus } = action.payload;
+  const emailToUpdate = state.inboxEmailsArr.find((email) => email.id === id);
+  if (emailToUpdate) 
+  {
+    // Calculate totalUnreadMessages
+    state.totalUnreadMessages = state.inboxEmailsArr.reduce((count, email) => email.requestBody.read ? count : count + 1, 0);
+
+    emailToUpdate.requestBody.read = readStatus;
+  }
+  
+})
+
+
+
+      
+      
     
     }
   })

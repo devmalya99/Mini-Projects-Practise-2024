@@ -57,6 +57,7 @@ const EmailCompose = () => {
         message,
         sentAt,
         from,
+        read: false,
       };
 
       try{

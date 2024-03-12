@@ -2,18 +2,34 @@
 
 import {useState, useEffect} from 'react'
 import Sidebar from './SideNavbar'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import Logout from './Buttons/LogoutButton'
 import { FirebaseAuthentication } from '../Firebase/FirebaseConfig'
-import { fetchInboxEmails } from '../ReduxToolKit/mailSlice';
+import { fetchInboxEmails, updateInboxEmail } from '../ReduxToolKit/mailSlice';
+import ReadMails from './ReadMails'
 import { useSelector , useDispatch} from 'react-redux';
 const Inbox = () => {
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const inboxEmails = useSelector((state) => state.mail.inboxEmailsArr);
   console.log("inboxEmails",inboxEmails)
   const isLoading = useSelector((state) => state.mail.isLoading);
   const error = useSelector((state) => state.mail.error);
+
+  const handleReadMail = (id)=>{
+    console.log("clicked",id)
+
+    //chage the read status of the mail to true
+  //do this update the redux 
+
+  dispatch(updateInboxEmail({ id, email: FirebaseAuthentication.currentUser.email, readStatus: true }));
+    
+    navigate(`/readmail/${id}`)
+
+
+  }
 
   useEffect(()=>{
     const unsubscribe = FirebaseAuthentication.onAuthStateChanged(user=>{
@@ -83,18 +99,23 @@ const Inbox = () => {
       {inboxEmails.map((email) => (
         <li key={email.requestBody.sentAt} 
         className="px-4 py-4 sm:px-6  hover:bg-blue-gray-400">
-          <div className="flex items-center justify-between ">
+          <div className="flex items-center justify-between "
+          onClick={()=>handleReadMail(email.id)}
+          >
             <div className="truncate">
               <div className="flex items-center space-x-3">
                 <div className="flex-shrink-0">
+                {email.requestBody.read === false ? <div className="mr-2 text-blue-500">🔵</div> : null }
                   <img
                     className="h-10 w-10 rounded-full"
                     src="https://via.placeholder.com/50"
                     alt=""
                   />
                 </div>
+                
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-gray-900 truncate">
+                  
                     {email.requestBody.to}
                   </p>
                   <p className="text-sm text-gray-500 truncate">

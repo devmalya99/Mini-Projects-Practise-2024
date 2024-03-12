@@ -9,6 +9,7 @@ import Compose from './Compose';
 import Forgot from './ForgotPassword';
 import Protected from './Protected/Protected';
 import Sentbox from './Sentbox';
+import ReadMails from './ReadMails';
 
 const Navigation = () => {
   return (
@@ -44,6 +45,16 @@ const Navigation = () => {
           element={
             <Protected>
               <Sentbox />
+            </Protected>
+          }
+        />
+
+        <Route
+          exact
+          path="/readmail/:id"
+          element={
+            <Protected>
+              <ReadMails />
             </Protected>
           }
         />

@@ -3,8 +3,10 @@ import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const Sidebar = () => {
     const navigate = useNavigate();
+    const totalUnreadMessages = useSelector(state=>state.mail.totalUnreadMessages)
 
     const handleSelect = (path)=>{
            navigate(`/${path}`)
@@ -27,12 +29,14 @@ const Sidebar = () => {
                         Compose
                     </NavText>
                 </NavItem>
+                
                 <NavItem eventKey="inbox">
                     <NavIcon>
                     <i className="fa fa-fw fa-envelope" style={{ fontSize: '1.75em' }} />
                     </NavIcon>
                     <NavText>
-                        Inbox
+                        Inbox ({totalUnreadMessages}) 
+                        {/* fetch state.unreadMessage count and display it */}
                     </NavText>
                 </NavItem>
 
