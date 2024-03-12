@@ -7,7 +7,7 @@ import { FirebaseAuthentication } from '../Firebase/FirebaseConfig';
 import Sidebar from './SideNavbar';
 import {Link, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { saveInboxEmail, saveSentEmail } from '../ReduxToolKit/mailSlice';
+import { fetchInboxEmails, saveInboxEmail, saveSentEmail } from '../ReduxToolKit/mailSlice';
 const EmailCompose = () => {
 
   const navigate = useNavigate();
@@ -66,10 +66,16 @@ const EmailCompose = () => {
 
             // Dispatch the saveSentEmail action
             dispatch(saveSentEmail({ from, requestBody }));
+            
 
+            // Fetch the latest emails after sending
+        dispatch(fetchInboxEmails(currentUser.email));
+
+        //reset input field
+        setMailContent({})
              // Handle successful response if needed
-             console.log('Mail sent');
-             navigate('/sentbox');
+             alert('Mail sent');
+             
           }
 
       catch(error) 
@@ -135,6 +141,7 @@ const EmailCompose = () => {
             id="to"
             name="to"
             type="text"
+            value={mailContent.to || ''}
             autoComplete="email"
             onChange={handleChange}
             required
@@ -151,6 +158,7 @@ const EmailCompose = () => {
             id="subject"
             name="subject"
             type="text"
+            value={mailContent.subject || ''}
             autoComplete="email-subject"
             onChange={handleChange}
             required
@@ -167,6 +175,7 @@ const EmailCompose = () => {
             id="message"
             name="message"
             rows="4"
+            value={mailContent.message || ''}
             
             onChange={handleChange}
             required
