@@ -58,6 +58,16 @@ const Navigation = () => {
             </Protected>
           }
         />
+
+<Route
+          exact
+          path="/sentmail/:id"
+          element={
+            <Protected>
+              <ReadMails />
+            </Protected>
+          }
+        />
     </Routes>
     </BrowserRouter>
 

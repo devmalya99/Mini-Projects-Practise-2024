@@ -87,7 +87,7 @@ export const saveSentEmail = createAsyncThunk(
         }
   
         const data = await response.json();
-        return data ? Object.values(data) : [];
+        return data ? Object.entries(data).map(([id, value]) => ({ id, ...value })) : [];
       } catch (error) {
         return rejectWithValue(error.message);
       }
@@ -221,6 +221,7 @@ export const updateInboxEmail = createAsyncThunk(
       .addCase(fetchInboxEmails.fulfilled, (state, action) => {
         state.isLoading = false;
         state.inboxEmailsArr = action.payload;
+        
         // Calculate totalUnreadMessages immediately after fetching the emails.
 state.totalUnreadMessages = state.inboxEmailsArr.reduce((count, email) => email.requestBody.read ? count : count + 1, 0);
       })

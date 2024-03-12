@@ -15,8 +15,8 @@ const Inbox = () => {
   const dispatch = useDispatch();
   const inboxEmails = useSelector((state) => state.mail.inboxEmailsArr);
   console.log("inboxEmails",inboxEmails)
-  const isLoading = useSelector((state) => state.mail.isLoading);
-  const error = useSelector((state) => state.mail.error);
+
+  
 
   const handleDeleteMail = (id) => {
     dispatch(deleteInboxEmail({id, email: FirebaseAuthentication.currentUser.email}));

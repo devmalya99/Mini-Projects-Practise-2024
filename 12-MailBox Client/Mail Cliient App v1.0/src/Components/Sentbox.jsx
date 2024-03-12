@@ -1,49 +1,56 @@
 import {useEffect , useState} from 'react'
 import { FirebaseAuthentication } from '../Firebase/FirebaseConfig';
 import Sidebar from './SideNavbar';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSentEmails } from '../ReduxToolKit/mailSlice';
 const Sentbox = () => {
 
-    const [sentMailArr, setSentMailArr] = useState([]);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const fetchUserSentBox = async()=>{
-        const userEmail = FirebaseAuthentication.currentUser.email;
-       const formattedEmail = userEmail.replace(/\./g, '_');
-       
-       const res = await fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/sent/${formattedEmail}.json`,{
-         method: 'GET',
-       });
+  const sentEmails= useSelector((state) => state.mail.sentEmailsArr);
+  console.log("sentEmails",sentEmails)
 
-       if(res.ok){
-         const data = await res.json();
-         setSentMailArr(Object.values(data || {}));
-         console.log("get fetched data", sentMailArr);//here am getting an object..that i have to turn it into array of objects
-         return data;
-       }else{
-         console.log("Error fetching data");
-         return (<div><h1>Error</h1></div>)
-       }
+    
+    const userEmail = FirebaseAuthentication.currentUser.email;
 
-    }
+
+
 
 
     useEffect(() => {
         const unsubscribe = FirebaseAuthentication.onAuthStateChanged(user => {
           if (user) {
+            dispatch(fetchSentEmails(userEmail));
             console.log('User is signed in');
           } else {
             console.log('No user is signed in');
           }
         });
-        fetchUserSentBox()
+        
     
         // Cleanup subscription on unmount
         return () => unsubscribe();
     
       }, []);
 
-      if(!sentMailArr){
+
+      const handleReadMail = (id)=>{
+        console.log("clicked",id)
+    
+        //chage the read status of the mail to true
+      //do this update the redux 
+    
+      
+        navigate(`/sentmail/${id}`)
+      }
+
+      if(!sentEmails){
         return <div>Loading...</div>
       }
+
+console.log("sentMailArr",sentEmails)
 
   return (
     <div className="bg-white ml-64 mt-24 mr-24 rounded-lg shadow-md overflow-hidden">
@@ -52,9 +59,13 @@ const Sentbox = () => {
       <h3 className="text-lg leading-6 font-medium text-gray-900">Sent Mail</h3>
     </div>
     <ul className="divide-y divide-gray-200 ">
-      {sentMailArr.map((email) => (
+      {sentEmails.map((email) => (
+         
         <li key={email.requestBody.sentAt} className="px-4 py-4 sm:px-6 hover:bg-gray-50">
-          <div className="flex items-center justify-between">
+          
+          <div className="flex items-center justify-between"
+            onClick={() => handleReadMail(email.id)}
+          >
             <div className="truncate">
               <div className="flex items-center space-x-3">
                 <div className="flex-shrink-0">

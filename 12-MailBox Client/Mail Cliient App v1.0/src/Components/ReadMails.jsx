@@ -8,7 +8,10 @@ const ReadMails = () => {
     const inboxEmails = useSelector((state) => state.mail.inboxEmailsArr);
     console.log("inboxEmails",inboxEmails)
 
-    const myMail = inboxEmails.find((mail) => mail.id.toString() === id);
+    const sentEmails = useSelector((state) => state.mail.sentEmailsArr);
+    console.log("sentEmails",sentEmails)
+
+    const myMail = [...inboxEmails, ...sentEmails].find((mail) => mail.id.toString() === id);
     console.log("Mail to be read",myMail)
 
     if(!myMail)
