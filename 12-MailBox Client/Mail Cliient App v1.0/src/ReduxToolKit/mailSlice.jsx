@@ -128,8 +128,30 @@ export const updateInboxEmail = createAsyncThunk(
 );
 
   //Async thunk for deleting an email:
-  export const deleteEmail = createAsyncThunk(
+  export const deleteInboxEmail  = createAsyncThunk(
+    'mail/deleteInboxEmail',
+    async (payload, { rejectWithValue }) => {
+      try {
+        const {id,email} = payload;
+        const formattedEmail = email.replace(/\./g, '_');
+         
+        const response = await fetch(`https://mailbox-client-app-default-rtdb.firebaseio.com/inbox/${formattedEmail}/${id}.json`,{
+        
+          method: 'DELETE',
+        
+        })
 
+        if(!response.ok){
+          throw new Error('Error deleting email')
+        }
+
+         // Returns the payload as it is as we need this information in the reducer for filtering out the deleted email from state
+      return payload; 
+
+      } catch (error) {
+        console.log(error)
+      }
+    }
   )
 
 
@@ -237,6 +259,15 @@ state.totalUnreadMessages = state.inboxEmailsArr.reduce((count, email) => email.
     emailToUpdate.requestBody.read = readStatus;
   }
   
+})
+
+//extra reducers for deleting 
+// In the extraReducers field
+
+.addCase(deleteInboxEmail.fulfilled, (state, action) => {
+  state.isLoading = false;
+  const { id } = action.payload;
+  state.inboxEmailsArr = state.inboxEmailsArr.filter((email) => email.id !== id);
 })
 
 
