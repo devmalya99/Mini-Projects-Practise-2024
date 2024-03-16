@@ -53,8 +53,8 @@ const Login = () => {
     <section className="bg-white-800 w-full dark:bg-black h-screen">
       <div className="grid grid-cols-2 md:h-screen lg:py-0 px-6 py-8 mx-auto items-center">
         <img className="justify-self-center"
-             src="https://expenseless.netlify.app/static/media/header-cover.feb3609bcec11e31f808.jpg"
-             alt="Paisa Kaha Gaya Image"
+             src="https://img.freepik.com/free-vector/phone-surrounded-by-messages-isometric-style_52683-22931.jpg?w=740&t=st=1710596350~exp=1710596950~hmac=dfedf037e78f122259561cef0d33068d7745d0937976909a003535aa1c1437ac"
+            //  alt="Paisa Kaha Gaya Image"
              width="740"
              height="582" />
         <div className="bg-white w-full p-6 m-4 rounded-lg dark:bg-black md:mt-0 sm:max-w-full xl:p-0">

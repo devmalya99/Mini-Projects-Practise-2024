@@ -91,69 +91,51 @@ const Inbox = () => {
     </div>
   </header>
 
-
+  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 ml-64 ">
+    <h1 className="text-4xl font-bold text-gray-900 mb-10 text-center">See What's Waiting for You</h1>
+    <ul className="divide-y divide-gray-200 primary-shadow rounded-lg overflow-hidden">
+        {inboxEmails.map((email) => (
+            <li
+                key={email.requestBody.sentAt}
+                className="bg-blue-gray-100 mt-4 hover:bg-gray-400 transition duration-300 ease-in-out p-6 space-y-4">
+                <div className="flex items-start space-x-4 cursor-pointer"
+                     onClick={() => handleReadMail(email.id)}>
+                    <div className="flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full bg-blue-gray-200">
+                        {email.requestBody.read === false && (
+                            <div className="text-blue-500">🔵</div>
+                        )}
+                        <img
+                            className="h-10 w-10 rounded-full"
+                            src="https://via.placeholder.com/50"
+                            alt="Avatar"
+                        />
+                    </div>
+                    <div>
+                        <p className="text-lg font-semibold text-red-700 truncate">{email.requestBody.to}</p>
+                        <p className="text-base text-gray-500 truncate">{email.requestBody.subject}</p>
+                    </div>
+                </div>
+                <p className="text-2xl text-gray-600 line-clamp-2 ">{email.requestBody.body}</p>
+                <div className="flex items-center space-x-4">
+                    <span className="px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                        Sent
+                    </span>
+                    <span className="text-sm text-gray-500">{new Date(email.requestBody.sentAt).toLocaleString()}</span>
+                </div>
+                <div className="text-right">
+                    <button
+                        onClick={() => handleDeleteMail(email.id)}
+                        className="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-lg shadow bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 text-white">
+                        Delete Email
+                    </button>
+                </div>
+            </li>
+        ))}
+    </ul>
+</div>
 
   
-  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
- <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">See What's Waiting for You</h1>
- <ul className="divide-y divide-gray-200 shadow-lg rounded-lg overflow-hidden">
-   {inboxEmails.map((email) => (
-     <li
-       key={email.requestBody.sentAt}
-       className="bg-white hover:bg-gray-50 transition duration-300 ease-in-out px-6 py-4 flex items-center justify-between"
-       
-     >
-       <div className="flex items-center px-4 py-2 rounded-xl bg-blue-gray-200 cursor-pointer"
-       onClick={() => handleReadMail(email.id)}
-       >
-         <div className="flex-shrink-0 bg-blue-gray-400"
 
-         >
-           {email.requestBody.read === false ? (
-             <div className="mr-2 text-blue-500">🔵</div>
-           ) : null}
-           <img
-             className="h-10 w-10 rounded-full"
-             src="https://via.placeholder.com/50"
-             alt=""
-           />
-         </div>
-         <div className="ml-4">
-           <p className="text-sm font-semibold text-red-700 truncate">
-             {email.requestBody.to}
-           </p>
-           <p className="text-sm text-gray-500 truncate">
-             {email.requestBody.subject}
-           </p>
-         </div>
-       </div>
-       <div className="flex items-center">
-         <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-           Sent
-         </span>
-         <span className="ml-2 text-sm text-gray-500">
-           {new Date(email.requestBody.sentAt).toLocaleString()}
-         </span>
-         <div className="mt-6">
-   <p 
-   
-   className="text-sm text-gray-600 line-clamp-2">
-     {email.requestBody.body}
-   </p>
- </div>
- <div className="mt-4 ml-6 text-right">
-   <button
-     onClick={() => handleDeleteMail(email.id)} 
-   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-     Delete Email
-   </button>
- </div>
-       </div>
-     </li>
-   ))}
- </ul>
-
-</div>
   </>
   )
 }

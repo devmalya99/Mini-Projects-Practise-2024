@@ -88,7 +88,7 @@ const Signup = () => {
         <div className="grid grid-cols-2 md:h-screen lg:py-0 px-6 py-8 mx-auto items-center justify-items-center">
           <img
             className="justify-self-center"
-            src="https://expenseless.netlify.app/static/media/header-cover.feb3609bcec11e31f808.jpg"
+            src="https://img.freepik.com/free-vector/phone-surrounded-by-messages-isometric-style_52683-22931.jpg?w=740&t=st=1710596350~exp=1710596950~hmac=dfedf037e78f122259561cef0d33068d7745d0937976909a003535aa1c1437ac"
             alt="Paisa Kaha Gaya Image"
             width="740"
             height="582"

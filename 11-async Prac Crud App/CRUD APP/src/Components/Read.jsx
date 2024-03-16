@@ -39,7 +39,7 @@ console.log(searchData)
               <label>All
             <input type="radio" 
             value=""
-            onChange={(e)=>setSelectGender(e.target.value)}
+            onChange={(e)=>setSelectGender(e.target.value)} 
             checked = {selectGender === ""}
             />
             </label>
