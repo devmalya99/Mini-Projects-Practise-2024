@@ -1,8 +1,16 @@
+import TopicsList from '@/components/TopicsList'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>Home</div>
+    <div>
+      <TopicsList/>
+      <TopicsList/>
+      <TopicsList/>
+      <TopicsList/>
+      <TopicsList/>
+
+    </div>
   )
 }
 
