@@ -1,3 +1,4 @@
+import Checkbox from '@/components/Checkbox';
 import RemoveBtn from '@/components/RemoveBtn';
 
 import Link from 'next/link';
@@ -21,6 +22,7 @@ export const fetchTopics = async () => {
 };
 
 
+
 const page = async () => {
   const topics = 
     await fetchTopics();
@@ -32,11 +34,11 @@ const page = async () => {
           className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start"
         >
           <div>
-            <input
 
-              type="checkbox"
+         <Checkbox id={t._id}/>
             
-            />
+            
+            
             <h2 className="font-bold text-2xl">{t.title}</h2>
             <div>{t.description}</div>
           </div>

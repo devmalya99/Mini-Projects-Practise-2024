@@ -21,7 +21,7 @@ const AddTopic = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({ title, description ,  status: 'incomplete'}),
       });
       if (res.ok) {
         // Navigate to the list page
