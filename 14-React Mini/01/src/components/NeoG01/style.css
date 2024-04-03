@@ -38,5 +38,14 @@ header{
     padding-left: 20px;
 }
 
+.air-container{
+    background-color: bisque;
+}
+
+.cardLayout{
+    border: 1px solid black;
+    gap: 1rem;
+}
+
 
 
