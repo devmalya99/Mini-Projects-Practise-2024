@@ -33,7 +33,7 @@ export default function Accordion() {
         <div className="wraper">
             <button 
             onClick={()=>setEnableMultiSelection(!enableMultiSelection)}
-            className="btn">Enable Multi-Selection</button>
+            className="btn">{enableMultiSelection?  'Enable Single Select' : 'Enable Multiselect'}</button>
            
            <div className="accordian"> 
                  {
