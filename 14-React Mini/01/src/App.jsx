@@ -2,6 +2,7 @@ import Accordion from './components/accordian'
 import Neog from './components/NeoG01'
 import './App.css'
 import StarRating from './components/Star'
+import ImageSlider from './components/ImageSlider'
 
 function App() {
 
@@ -15,8 +16,10 @@ function App() {
       {/* <Neog /> */}
 
       {/* Star Rating Component */}
-      <StarRating/>
-        
+      {/* <StarRating/> */}
+
+      {/* Image Slider */}
+        <ImageSlider/>
     </>
   )
 }
