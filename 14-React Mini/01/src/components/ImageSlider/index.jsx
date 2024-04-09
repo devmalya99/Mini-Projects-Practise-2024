@@ -14,6 +14,11 @@ const ImageCard = memo(({download_url, isActive})=>(
             </div>
 
 ))
+//The displayName property in React is used in the React developer tools and error messages, helping to identify components in the Component hierarchy. When debugging or checking the 
+//component tree in React Dev Tools, you'll see this displayName there, which makes finding your specific component easier.
+//Although displayName is usually inferred from the function or class name, certain patterns like Higher-Order Components 
+//(HOCs) or React.memo() may obscure it. In these cases, it's beneficial to manually assign a displayName.
+ImageCard.displayName = "ImageCard";
 export default function ImageSlider() {
   const [images, setImages] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);

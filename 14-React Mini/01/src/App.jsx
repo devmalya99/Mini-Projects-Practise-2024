@@ -3,6 +3,7 @@ import Neog from './components/NeoG01'
 import './App.css'
 import StarRating from './components/Star'
 import ImageSlider from './components/ImageSlider'
+import LoadMoreButton from './components/LoadMoreButton'
 
 function App() {
 
@@ -19,7 +20,10 @@ function App() {
       {/* <StarRating/> */}
 
       {/* Image Slider */}
-        <ImageSlider/>
+        {/* <ImageSlider/> */}
+
+        {/* Loadmore button */}
+        <LoadMoreButton/>
     </>
   )
 }
