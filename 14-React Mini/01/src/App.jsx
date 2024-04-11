@@ -7,6 +7,7 @@ import LoadMoreButton from './components/LoadMoreButton'
 import Neog2 from './components/NeoG2'
 import Pagination from './components/Pagination'
 import ProgressbarComponent from './components/progressbar'
+import CounterApp from './components/counterApp'
 
 function App() {
 
@@ -35,7 +36,10 @@ function App() {
         {/* <Pagination/> */}
 
         {/* Progressbar */}
-        <ProgressbarComponent/>
+        {/* <ProgressbarComponent/> */}
+
+        {/* Testing useCounter */}
+        <CounterApp/>
     </>
   )
 }
