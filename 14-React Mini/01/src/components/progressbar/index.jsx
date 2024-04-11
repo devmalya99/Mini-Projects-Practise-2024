@@ -17,7 +17,6 @@ const ProgressbarComponent = () => {
     }, 100);
 
     return () => clearInterval(interval);
-
   },[value])
   return (
     <div>
