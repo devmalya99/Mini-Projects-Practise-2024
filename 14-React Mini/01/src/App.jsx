@@ -6,6 +6,7 @@ import ImageSlider from './components/ImageSlider'
 import LoadMoreButton from './components/LoadMoreButton'
 import Neog2 from './components/NeoG2'
 import Pagination from './components/Pagination'
+import ProgressbarComponent from './components/progressbar'
 
 function App() {
 
@@ -31,7 +32,10 @@ function App() {
         {/* <Neog2/> */}
 
         {/* Pagination */}
-        <Pagination/>
+        {/* <Pagination/> */}
+
+        {/* Progressbar */}
+        <ProgressbarComponent/>
     </>
   )
 }
