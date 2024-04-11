@@ -11,7 +11,7 @@ export default function LoadMoreButton() {
   const [imgArr, setImgArr] = useState([]);
   const [count,setCount] = useState(0)
   const [loading,setLoading] = useState(true)
-  const [loadComplete,setLoadComplete] = useState(false)
+  //const [loadComplete,setLoadComplete] = useState(false)
 
 
   //useCall back on fetch function

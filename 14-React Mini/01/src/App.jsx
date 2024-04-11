@@ -4,6 +4,8 @@ import './App.css'
 import StarRating from './components/Star'
 import ImageSlider from './components/ImageSlider'
 import LoadMoreButton from './components/LoadMoreButton'
+import Neog2 from './components/NeoG2'
+import Pagination from './components/Pagination'
 
 function App() {
 
@@ -23,7 +25,13 @@ function App() {
         {/* <ImageSlider/> */}
 
         {/* Loadmore button */}
-        <LoadMoreButton/>
+        {/* <LoadMoreButton/> */}
+
+        {/* Neog Day2 React */}
+        {/* <Neog2/> */}
+
+        {/* Pagination */}
+        <Pagination/>
     </>
   )
 }
