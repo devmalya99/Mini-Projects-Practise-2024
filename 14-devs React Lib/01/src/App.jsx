@@ -8,38 +8,60 @@ import Neog2 from './components/NeoG2'
 import Pagination from './components/Pagination'
 import ProgressbarComponent from './components/progressbar'
 import CounterApp from './components/counterApp'
+import InfinityScroll from './components/infinityscroll'
 
 function App() {
 
 
   return (
     <>
+    {/* Progressbar */}
+    <ProgressbarComponent/>
+
       {/* Accordian Component */}
-      {/* <Accordion/> */}
+      <Accordion/>
+
+      <ProgressbarComponent/>
 
       {/* Neog React 1 */}
-      {/* <Neog /> */}
+      <Neog />
+
+      <ProgressbarComponent/>
 
       {/* Star Rating Component */}
-      {/* <StarRating/> */}
+      <StarRating/>
+
+      <ProgressbarComponent/>
 
       {/* Image Slider */}
-        {/* <ImageSlider/> */}
+        <ImageSlider/>
+
+        <ProgressbarComponent/>
 
         {/* Loadmore button */}
-        {/* <LoadMoreButton/> */}
+        <LoadMoreButton/>
+
+        <ProgressbarComponent/>
 
         {/* Neog Day2 React */}
-        {/* <Neog2/> */}
+        <Neog2/>
+
+        <ProgressbarComponent/>
 
         {/* Pagination */}
-        {/* <Pagination/> */}
+        <Pagination/>
 
-        {/* Progressbar */}
-        {/* <ProgressbarComponent/> */}
+        <ProgressbarComponent/>
+
+        
 
         {/* Testing useCounter */}
         <CounterApp/>
+
+        <ProgressbarComponent/>
+
+        {/* Infinity scroll */}
+        <InfinityScroll/>
     </>
   )
 }

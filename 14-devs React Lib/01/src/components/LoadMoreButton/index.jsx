@@ -14,13 +14,12 @@ export default function LoadMoreButton() {
   //const [loadComplete,setLoadComplete] = useState(false)
 
 
-  //useCall back on fetch function
+ 
   async function fetchProducts(){
     setLoading(true);
     try {
       const {data} = await axios.get(`https://dummyjson.com/products?limit=20&skip=${count*20}`);
       setImgArr((prev)=> (count===0 ? data.products : [...prev, ...data.products]));
-      
     } catch (err) {
       console.error(err);
     } finally {
