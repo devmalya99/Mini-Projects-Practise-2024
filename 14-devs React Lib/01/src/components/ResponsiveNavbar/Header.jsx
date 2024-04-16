@@ -16,7 +16,7 @@ const Header = () => {
         {/* sidebar mobile menu */}
         {
             isSideMenuOpen && 
-            <div className=" flex lg:hidden fixed h-full w-screen bg-black/50 backdrop-blur-sm top-0 right-0 ">
+            <div className=" flex lg:hidden fixed h-full w-full bg-black/50 backdrop-blur-sm top-0 right-0 left-0 ">
           <section className="text-black bg-slate-50  absolute left-0 top-0 h-screen p-8 z-48 gap-8">
             <AiOutlineClose className="mb-6" 
             onClick={()=>setMenu(false)}
