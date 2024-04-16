@@ -1,7 +1,7 @@
 // ProductCard.js
 import { memo } from "react";
 
-const ProductCard = memo(({ title, price, description, image }) => {
+const ProductCard = memo(({ title, price, description, image,onClick }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden sm:max-w-xs lg:max-w-sm">
       <div className="h-64 sm:h-48 overflow-hidden">
@@ -12,7 +12,9 @@ const ProductCard = memo(({ title, price, description, image }) => {
         <p className="text-gray-600 mb-4 line-clamp-2">{description}</p>
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-gray-800">${price}</span>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+          <button 
+          onClick={onClick}
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
             Add to Cart
           </button>
         </div>

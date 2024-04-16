@@ -8,7 +8,7 @@ const ProgressbarComponent = () => {
   useEffect(()=>{
     const interval = setInterval(() => {
       if (value < 100) {
-        setValue((val) => val + 2);
+        setValue((val) => val + 5);
       } else {
         setValue(100);
         setSuccess(true)

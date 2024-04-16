@@ -1,0 +1,3 @@
+.hover-styles{
+    @apply px-4 text-2xl bg-slate-500 rounded-xl mt-2 cursor-pointer;
+  }

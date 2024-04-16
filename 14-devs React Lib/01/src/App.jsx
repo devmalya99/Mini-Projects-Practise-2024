@@ -9,59 +9,58 @@ import Pagination from './components/Pagination'
 import ProgressbarComponent from './components/progressbar'
 import CounterApp from './components/counterApp'
 import InfinityScroll from './components/infinityscroll'
-
+import CounterHOC from './components/HOC/index'
+import Header from './components/ResponsiveNavbar/Header'
 function App() {
 
 
   return (
     <>
+    <Header />
     {/* Progressbar */}
-    <ProgressbarComponent/>
+    {/* <ProgressbarComponent/> */}
 
       {/* Accordian Component */}
-      <Accordion/>
+      {/* <Accordion/> */}
 
-      <ProgressbarComponent/>
+    
 
       {/* Neog React 1 */}
-      <Neog />
+      {/* <Neog /> */}
 
-      <ProgressbarComponent/>
 
       {/* Star Rating Component */}
-      <StarRating/>
+      {/* <StarRating/> */}
 
-      <ProgressbarComponent/>
 
       {/* Image Slider */}
-        <ImageSlider/>
+        {/* <ImageSlider/> */}
 
-        <ProgressbarComponent/>
 
         {/* Loadmore button */}
-        <LoadMoreButton/>
+        {/* <LoadMoreButton/>
 
-        <ProgressbarComponent/>
+        <ProgressbarComponent/> */}
 
         {/* Neog Day2 React */}
-        <Neog2/>
+        {/* <Neog2/> */}
 
-        <ProgressbarComponent/>
+       
 
         {/* Pagination */}
-        <Pagination/>
-
-        <ProgressbarComponent/>
-
+        {/* <Pagination/> */}
         
 
         {/* Testing useCounter */}
-        <CounterApp/>
+        {/* <CounterApp/> */}
 
-        <ProgressbarComponent/>
+        {/* <ProgressbarComponent/> */}
 
         {/* Infinity scroll */}
-        <InfinityScroll/>
+        {/* <InfinityScroll/> */}
+
+        {/* <CounterHOC/> */}
+
     </>
   )
 }

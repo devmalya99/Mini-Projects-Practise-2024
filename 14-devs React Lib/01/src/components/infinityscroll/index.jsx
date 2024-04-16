@@ -26,11 +26,7 @@ export default function InfinityScroll() {
 
 
   const handleInfinityscroll =()=>{
-    console.log('scroll height: ',document.documentElement.scrollHeight)
-
-    console.log("inner height: ", window.innerHeight)
-
-    console.log("scroll top: ", document.documentElement.scrollTop);
+    
     try {
         if ((window.innerHeight + document.documentElement.scrollTop+2)>=document.documentElement.scrollHeight){
             setCount(prev=>prev+1)
@@ -68,7 +64,9 @@ export default function InfinityScroll() {
           key={each.id}
           className=" "
         >
-          <ProductCard title={each.title} description={each.description} image={each.images[3]}/>
+          <ProductCard title={each.title} description={each.description} image={each.images[3]}
+          
+          />
         </div>
       ))
     }
