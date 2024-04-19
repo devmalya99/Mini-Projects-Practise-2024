@@ -1,0 +1,170 @@
+{
+    "questions": 
+    [
+      {
+        "question": "What is the purpose of JSX in React?",
+        "options": [
+          "A way to style components",
+          "A library for building user interfaces",
+          "A declarative syntax for describing UI",
+          "A method for handling component state"
+        ],
+        "correctOption": 3,
+        "points": 10
+      },
+      {
+        "question": "What is the virtual DOM in React?",
+        "options": [
+          "The actual DOM tree in the browser",
+          "A lightweight representation of the UI",
+          "A way to optimize component rendering",
+          "All of the above"
+        ],
+        "correctOption": 3,
+        "points": 10
+      },
+      {
+        "question": "What is the difference between state and props in React?",
+        "options": [
+          "State is internal, props are external",
+          "State can change, props are static",
+          "Both A and B",
+          "There's no difference"
+        ],
+        "correctOption": 2,
+        "points": 10
+      },
+      {
+        "question": "What are lifecycle methods in React, and when are they used?",
+        "options": [
+          "Methods that define a component's behavior at different stages",
+          "Used for data fetching, event handling, and cleanup",
+          "Examples include componentDidMount, componentDidUpdate, componentWillUnmount",
+          "All of the above"
+        ],
+        "correctOption": 3,
+        "points": 10
+      },
+      {
+        "question": "How do you handle events in React?",
+        "options": [
+          "Inline event handlers (onClick, onChange)",
+          "Event delegation with higher-order components",
+          "Both A and B",
+          "There's no built-in way for events"
+        ],
+        "correctOption": 2,
+        "points": 10
+      },
+      {
+        "question": "What are higher-order components (HOCs) in React, and why are they used?",
+        "options": [
+          "Components that wrap other components to add functionality",
+          "Useful for code reuse, sharing logic, and preventing prop drilling",
+          "Both A and B",
+          "A way to style components"
+        ],
+        "correctOption": 2,
+        "points": 10
+      },
+      {
+        "question": "Explain the concept of controlled components and uncontrolled components in React.",
+        "options": [
+          "Controlled components: state manages form values, uncontrolled components use refs",
+          "Uncontrolled components: directly modify DOM elements, controlled components use state",
+          "Both A and B",
+          "There's no difference between them"
+        ],
+        "correctOption": 0,
+        "points": 10
+      },
+      {
+        "question": "How do you handle routing in React applications?",
+        "options": [
+          "React Router library for defining routes and components",
+          "URL changes trigger component rendering based on the path",
+          "Both A and B",
+          "There's no built-in routing in React"
+        ],
+        "correctOption": 2,
+        "points": 10
+      },
+      {
+        "question": "What are the benefits of using a component-based architecture in React?",
+        "options": [
+          "Improved code reusability, maintainability, and modularity",
+          "Easier UI composition and testing",
+          "Both A and B",
+          "There's no significant benefit"
+        ],
+        "correctOption": 2,
+        "points": 10
+      },
+      {
+            "question": "What is the purpose of React's render() function?",
+            "options": [
+              "It updates the DOM",
+              "It calculates the updated state",
+              "It calculates the updated props",
+              "It returns the JSX structure of the component"
+            ],
+            "correctOption": 3,
+            "points": 10
+          },
+      {
+            "question": "Which of the following is the correct syntax for React's conditional rendering?",
+            "options": [
+              "{condition && <Component/>}",
+              "{condition ? <Component/>}",
+              "{if(condition) <Component/>}",
+              "None of the above"
+            ],
+            "correctOption": 0,
+            "points": 10
+          },
+       {
+            "question": "What is a 'key' prop in React and why is it used?",
+            "options": [
+              "Used for identifying components in the virtual DOM",
+              "Used for performance optimization during component updates",
+              "Both A and B",
+              "None of the above"
+            ],
+            "correctOption": 2,
+            "points": 10
+          },
+       {
+            "question": "In React, how do you pass data from child components to parent components?",
+            "options": [
+              "Via state",
+              "Via props",
+              "By using callback functions",
+              "By using global state management"
+            ],
+            "correctOption": 2,
+            "points": 10
+          },
+      {
+            "question": "What is React Context API designed for?",
+            "options": [
+              "Managing global state",
+              "Sharing data without prop drilling",
+              "Replacing redux",
+              "All of the above"
+            ],
+            "correctOption": 3,
+            "points": 10
+          },
+      { 
+            "question": "What is the difference between a React component and a React element?",
+            "options": [
+              "A component is a function or a class which optionally accepts input and returns a React element",
+              "A React element is an object representation of a DOM element",
+              "Both A and B",
+              "There's no difference"
+            ],
+            "correctOption": 2,
+            "points": 1
+         }
+    ]
+  }
