@@ -1,50 +1,42 @@
+import { useEffect, useReducer } from "react";
+import Form from "../components/form";
+import Display from "../components/taskList";
 
-
-import React, { useReducer } from 'react'
-import Increment from '../components/increment'
-import Decrement from '../components/decrement'
-const initialState ={
-  count:0,
-}
-const reducer =(state,action)=>{
-  switch (action.type)
-  {
-    case 'Increment' :
+const savedTask = localStorage.getItem('tasks')
+const initialState = {
+  taskArr: savedTask ? JSON.parse(savedTask) : []
+};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "AddTask":
       return {
         ...state,
-        count:state.count+1
-      }
+        taskArr: [...state.taskArr, action.payload],
+      };
 
-      case 'Decrement' :
+      case 'RemoveTask':
         return {
-          count : state.count-1
+          ...state,
+          taskArr: state.taskArr.filter((_,index)=>index!==action.payload)
         }
-        default :
-        throw new Error('Action type unknown')
+
+    default:
+      throw new Error("Action type unknown");
   }
-}
+};
 
 const MainFile = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const [state,dispatch] = useReducer(reducer, initialState)
-    return (
-    <div>
-      <main>
-        
-        <div className='flex flex-col justify-center items-center'>
-          <span className='bg-yellow-400 px-28 mr-4 mb-6 rounded-xl py-4 mt-20 text-4xl '>{state.count}</span>
-          
-          <div className='flex'>
-          <Increment dispatch={dispatch}/>
-          <Decrement dispatch={dispatch}/>
-          </div>
-        
+  useEffect(()=>{
+    localStorage.setItem('tasks',JSON.stringify(state.taskArr))
+  },[state.taskArr])
+  return (
+    <>
+      <Form dispatch={dispatch} />
+      <Display taskArr={state.taskArr} dispatch={dispatch}/>
+    </>
+  );
+};
 
-        </div>
-      </main>
-
-    </div>
-  )
-}
-
-export default MainFile
+export default MainFile;
