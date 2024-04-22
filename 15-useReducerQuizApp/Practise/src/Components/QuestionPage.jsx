@@ -22,7 +22,7 @@ const QuestionPage = ({ question, dispatch, index }) => {
   return (
     <div className="min-h-screen  flex flex-col justify-center items-center">
       <div className="w-4/5 md:w-3/5 lg:w-1/2">
-        <Progressbar index={index} total={15} />
+        <Progressbar index={index} total={15}  />
         <p className="text-white text-2xl mb-8">{question.question}</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {opt.map((each, i) => (

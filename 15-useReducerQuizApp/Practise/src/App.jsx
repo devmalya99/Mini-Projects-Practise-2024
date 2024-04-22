@@ -8,7 +8,9 @@ import QuestionPage from "./Components/QuestionPage";
 import ReadyPage from "./Components/ReadyPage";
 import questions from "./data/questions-data";
 import Endpage from "./Components/Endpage";
+import TimerContext from "./Timer-Context";
 
+const Time_PER_QUESTION = 30;
 const initialState ={
   questions:questions,
   status:'ready',
@@ -17,6 +19,7 @@ const initialState ={
   isCorrect:null,
   points:0,
   heighestScore:0,
+  secondsRemaining:null,
 }
 const reducer = (state,action)=>{
   switch (action.type) {
@@ -37,6 +40,7 @@ const reducer = (state,action)=>{
           ...state,
           status:'active',
           index:0,
+          secondsRemaining:questions.length*Time_PER_QUESTION
         }
         case 'answerMarked' :
           return {
@@ -66,13 +70,19 @@ const reducer = (state,action)=>{
                   questions:state.questions,
                   status:'ready'
                 }
+                case 'timer' : 
+                return {
+                  ...state,
+                  secondsRemaining: state.secondsRemaining-1,
+                  status: state.secondsRemaining===0 ? 'finished' : state.status
+                }
       default :
       throw new Error('Action type Unkown')
   }
 }
 
 function App() {
-  const [{status,questions,index,points,heighestScore},dispatch] = useReducer(reducer,initialState)
+  const [{status,questions,index,points,heighestScore , secondsRemaining},dispatch] = useReducer(reducer,initialState)
 
   //this is when you have live api
   // useEffect(()=>{
@@ -87,9 +97,15 @@ function App() {
   const maxPoints = questions
   .length * 10
 
+  const contextValue ={
+    secondsRemaining,
+    dispatch
+  }
+
 
 
   return (
+    <TimerContext.Provider value={contextValue} >
     <div className="container  px-4 pt-4 h-screen w-full "> 
       
       <Header points={points}/>
@@ -105,7 +121,9 @@ function App() {
 
         {status==='loading failed' && <ErrorPage message={'Failed to Load data'}/>}
       </Main>
+    
     </div>
+    </TimerContext.Provider>
   );
 }
 
