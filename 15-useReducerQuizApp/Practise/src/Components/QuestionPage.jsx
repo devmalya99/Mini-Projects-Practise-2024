@@ -112,9 +112,19 @@ const QuestionPage = ({ question, dispatch, index }) => {
             </div>
           ))}
         </div>
-        <button onClick={handleNextQuestion} className="p-2 option-hover bg-purple-500 text-white rounded mt-8">
+        <div className="flex justify-between">
+       
+        <button
+          className="px-8 py-3 mt-8 option-hover rounded-full bg-white text-purple-600 font-bold hover:bg-red-600 hover:text-white transition-colors duration-300"
+          onClick={() => dispatch({ type: 'restart' })}
+        >
+          Reset quiz
+        </button>
+        <button onClick={handleNextQuestion} className="px-8 py-3 mt-8 option-hover  rounded-full bg-white text-purple-600 font-bold hover:bg-green-600 hover:text-white transition-colors duration-300">
           Next
         </button>
+        </div>
+       
       </div>
     </div>
   );
