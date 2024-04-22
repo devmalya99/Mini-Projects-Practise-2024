@@ -15,14 +15,11 @@ const Form = ({dispatch}) => {
       </span>
       <div className="flex w-96  items-center justify-center">
         <form
-          className="flex flex-col items-center justify-center "
+          className="flex  items-center justify-center "
           onSubmit={handleSubmit}
         >
           <div className="flex mb-6 mt-4  items-center justify-center ">
-            <label htmlFor="taskBox" className="text-2xl ">
-              {" "}
-              Task :{" "}
-            </label>
+            
             <input
               id="taskBox"
               placeholder="Enter task"

@@ -1,6 +1,7 @@
 
 
 import './App.css'
+import { EditPopUp } from './components/editTask'
 import MainFile from './reducer/index'
 function App() {
 
@@ -8,7 +9,9 @@ function App() {
   return (
     <>
      <MainFile/>
-   </>
+     
+    
+    </>
   )
 }
 

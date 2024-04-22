@@ -6,6 +6,8 @@ import LoaderComp from "./Components/Loader";
 import ErrorPage from "./Components/ErrorPage";
 import QuestionPage from "./Components/QuestionPage";
 import ReadyPage from "./Components/ReadyPage";
+import Progressbar from "./Components/Progressbar";
+import Endpage from "./Components/Endpage";
 
 const initialState ={
   questions:[],
@@ -40,21 +42,29 @@ const reducer = (state,action)=>{
             ...state,
             isCorrect: action.isCorrect,
             hasAnswered : true,
-            points:action.totalPoints
+            
+            points : action.isCorrect ? state.points+10 : state.points-5
+            
           }
           case 'nextQuestion':
             return {
               ...state,
-              index:state.index+1,
+              index:state.index+1 ,
+
               hasAnswered:false //reset hasAnswred for nextWuestion
             }
+            case 'finished':
+              return {
+                ...state,
+                status:'finished'
+              }
       default :
       throw new Error('Action type Unkown')
   }
 }
 
 function App() {
-  const [{status,questions,index},dispatch] = useReducer(reducer,initialState)
+  const [{status,questions,index,points},dispatch] = useReducer(reducer,initialState)
   useEffect(()=>{
     fetch('http://localhost:8000/questions')
     .then((res)=>res.json())
@@ -62,16 +72,24 @@ function App() {
     .catch(()=>dispatch({type:'errorLoading'}))
   },[])
 
+  const maxPoints = questions
+  .length * 10
+
 
 
   return (
     <div className="container  px-4 pt-4 h-screen w-full "> 
       
-      <Header />
+      <Header points={points}/>
+     
       <Main>
         {status==='loading' && <LoaderComp/>}
         {status==='ready' && <ReadyPage dispatch={dispatch}/>}
-        {status==='active' && <QuestionPage question={questions[index]} dispatch={dispatch}/>}
+        
+        {status==='active' && <QuestionPage question={questions[index]} dispatch={dispatch} index={index}/>}
+        {status ==='finished' && 
+        <Endpage points={points} maxPoints={maxPoints}/>}
+        
 
         {status==='loading failed' && <ErrorPage message={'Failed to Load data'}/>}
       </Main>

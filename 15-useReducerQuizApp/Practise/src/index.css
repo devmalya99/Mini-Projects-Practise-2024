@@ -3,13 +3,14 @@
 @tailwind utilities;
 
 body{
-    background-color: rgb(33, 33, 65);
+    background-color: rgb(23, 25, 100);
 }
 .option-hover {
     transition: background-color 0.5s ease, margin-left 0.5s ease;
 }
 
 .option-hover:hover {
-    background-color: rgb(206, 182, 182);
+    background-color: rgb(228, 154, 105);
     margin-left: 10px;
+    cursor: pointer;
 }
