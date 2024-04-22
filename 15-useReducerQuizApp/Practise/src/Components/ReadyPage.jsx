@@ -10,7 +10,7 @@ const ReadyPage = ({ dispatch }) => {
           For each correct question, you will be awarded 10 points, while for each wrong answer, 5 points will be deducted.
         </p>
         <button
-          className="px-8 py-3 rounded-full bg-white text-purple-600 font-bold hover:bg-purple-600 hover:text-white transition-colors duration-300"
+          className="px-8 py-3 option-hover rounded-full bg-white text-purple-600 font-bold hover:bg-purple-600 hover:text-white transition-colors duration-300"
           onClick={() => dispatch({ type: 'startQuiz' })}
         >
           Let's Start

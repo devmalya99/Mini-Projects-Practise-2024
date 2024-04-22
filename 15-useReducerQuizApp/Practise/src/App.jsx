@@ -15,7 +15,8 @@ const initialState ={
   index:0,
   hasAnswered:false,
   isCorrect:null,
-  points:0
+  points:0,
+  heighestScore:0,
 }
 const reducer = (state,action)=>{
   switch (action.type) {
@@ -56,15 +57,22 @@ const reducer = (state,action)=>{
             case 'finished':
               return {
                 ...state,
-                status:'finished'
+                status:'finished',
+                heighestScore: state.points > state.heighestScore ? state.points : state.heighestScore
               }
+              case 'restart':
+                return {
+                  ...initialState,
+                  questions:state.questions,
+                  status:'ready'
+                }
       default :
       throw new Error('Action type Unkown')
   }
 }
 
 function App() {
-  const [{status,questions,index,points},dispatch] = useReducer(reducer,initialState)
+  const [{status,questions,index,points,heighestScore},dispatch] = useReducer(reducer,initialState)
   useEffect(()=>{
     fetch('http://localhost:8000/questions')
     .then((res)=>res.json())
@@ -88,7 +96,7 @@ function App() {
         
         {status==='active' && <QuestionPage question={questions[index]} dispatch={dispatch} index={index}/>}
         {status ==='finished' && 
-        <Endpage points={points} maxPoints={maxPoints}/>}
+        <Endpage points={points} maxPoints={maxPoints} heighestScore={heighestScore} dispatch={dispatch}/>}
         
 
         {status==='loading failed' && <ErrorPage message={'Failed to Load data'}/>}

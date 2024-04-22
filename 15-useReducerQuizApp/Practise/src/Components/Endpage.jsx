@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Endpage = ({ points, maxPoints }) => {
+const Endpage = ({ dispatch, points, maxPoints ,heighestScore}) => {
   const percentageScore = (points / maxPoints) * 100
 
   let emoji = ''
@@ -29,11 +29,19 @@ const Endpage = ({ points, maxPoints }) => {
         <h1 className="text-3xl font-bold mb-4 text-white">Endpage</h1>
         <p className="text-lg mb-2 text-white">You have collected {points} out of {maxPoints}</p>
         <p className="text-lg font-semibold text-white">Percentage Score: {percentageScore.toFixed(2)}%</p>
+        <p className="text-lg font-semibold text-white">Highest Score: {heighestScore}</p>
         <div className="flex justify-center mt-4">
           <span className="text-6xl mx-2">{emoji}</span>
         </div>
         <p className="text-lg mt-4 text-white italic">{quote}</p>
+        <button
+          className="px-8 py-3 mt-8 option-hover rounded-full bg-white text-purple-600 font-bold hover:bg-purple-600 hover:text-white transition-colors duration-300"
+          onClick={() => dispatch({ type: 'restart' })}
+        >
+          Let's Restart
+        </button>
       </div>
+      
     </div>
   )
 }
