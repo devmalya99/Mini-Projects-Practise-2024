@@ -2,16 +2,16 @@ import { useEffect, useReducer } from "react";
 import "./App.css";
 import Header from "./Components/Header";
 import Main from "./Components/Main";
-import LoaderComp from "./Components/Loader";
+// import LoaderComp from "./Components/Loader";
 import ErrorPage from "./Components/ErrorPage";
 import QuestionPage from "./Components/QuestionPage";
 import ReadyPage from "./Components/ReadyPage";
-import Progressbar from "./Components/Progressbar";
+import questions from "./data/questions-data";
 import Endpage from "./Components/Endpage";
 
 const initialState ={
-  questions:[],
-  status:'loading',
+  questions:questions,
+  status:'ready',
   index:0,
   hasAnswered:false,
   isCorrect:null,
@@ -20,13 +20,13 @@ const initialState ={
 }
 const reducer = (state,action)=>{
   switch (action.type) {
-    case 'dataRecieved' :
-      return {
-        ...state,
-        questions: action.payload,
-        status:'ready',
-        index:0
-      }
+    // case 'dataRecieved' :
+    //   return {
+    //     ...state,
+    //     questions: action.payload,
+    //     status:'ready',
+    //     index:0
+    //   }
       case 'errorLoading':
         return{
           ...state,
@@ -73,12 +73,16 @@ const reducer = (state,action)=>{
 
 function App() {
   const [{status,questions,index,points,heighestScore},dispatch] = useReducer(reducer,initialState)
-  useEffect(()=>{
-    fetch('http://localhost:8000/questions')
-    .then((res)=>res.json())
-    .then((data)=>dispatch({type:'dataRecieved' , payload:data}),)
-    .catch(()=>dispatch({type:'errorLoading'}))
-  },[])
+
+  //this is when you have live api
+  // useEffect(()=>{
+  //   fetch('http://localhost:8000/questions')
+  //   .then((res)=>res.json())
+  //   .then((data)=>dispatch({type:'dataRecieved' , payload:data}),)
+  //   .catch(()=>dispatch({type:'errorLoading'}))
+  // },[])
+
+
 
   const maxPoints = questions
   .length * 10
@@ -91,7 +95,7 @@ function App() {
       <Header points={points}/>
      
       <Main>
-        {status==='loading' && <LoaderComp/>}
+        {/* {status==='loading' && <LoaderComp/>} */}
         {status==='ready' && <ReadyPage dispatch={dispatch}/>}
         
         {status==='active' && <QuestionPage question={questions[index]} dispatch={dispatch} index={index}/>}
